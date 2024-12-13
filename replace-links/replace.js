@@ -1,8 +1,7 @@
 const prompt = require("prompt-sync")({ sigint: true });
 const fs = require("fs");
-const linkReplacements = require("./linkReplacements").linkReplacements;
-console.log(linkReplacements);
 
+// define terminal colours
 const RED = "\x1b[31m";
 const GREEN = "\x1b[32m";
 const YELLOW = "\x1b[33m";
@@ -11,9 +10,13 @@ const ENDCOLOR = "\x1b[0m";
 const BOLD = "\x1b[1m";
 const SEPARATOR = "\x1b[107m\x1b[34m";
 
+// display link replacement prompt for these domains:
 const domainWarnings = {
   "gamma.co.uk": "OLD LINK DETECTED",
 };
+
+// import list of links
+const linkReplacements = require("./linkReplacements").linkReplacements;
 
 const replaceUrls = (content) => {
   // regex to capture url in href attribute
