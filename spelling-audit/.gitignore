@@ -1,3 +1,4 @@
 input.csv
 output.csv
 spellcheck.txt
+!/spelling-audit/node_modules/simple-spellchecker/dict/cy-GB.dic

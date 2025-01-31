@@ -1,6 +1,8 @@
 {
 	"dependencies": {
 		"csv-parser": "^3.2.0",
-		"csv-writer": "^1.6.0"
+		"csv-writer": "^1.6.0",
+		"dictionary-cy-gb": "^1.0.0",
+		"simple-spellchecker": "^1.0.2"
 	}
 }

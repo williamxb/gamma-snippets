@@ -6,7 +6,7 @@ This snippet receives the output of a Screaming Frog spellcheck crawl and output
 
 * [Node.js](https://nodejs.org/en/download/package-manager)
 * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-* [dependencies](https://github.com/williamxb/snippets/blob/main/replace-links/package.json):
+* [dependencies](https://github.com/williamxb/snippets/blob/main/spelling-audit/package.json):
   ```sh
   npm install
   ```
@@ -25,20 +25,26 @@ This snippet receives the output of a Screaming Frog spellcheck crawl and output
    ```sh
    npm install
    ```
+4. (optional) Add the Welsh dictionary
+   Move the .dic file from the dictionary-cy-gb package to simple-spellchecker/dict and normalise it: `node cli.js normalize "./dict/en-GB.dic"`
 
-<!-- USAGE EXAMPLES -->
 ## Usage
 
 1. Paste a Screaming Frog spellcheck audit into `input.csv`
 2. Run the script with Node.js.
    ```sh
-   node maIn
+   node main
    ```
 3. The parsed file can be found in `output.csv`
 
 ### Example output
 
 ```
-WLR is in the spellcheck list
-wneud is not in the spellcheck list - writing to csv2
+wising is incorrect - writing to output.csv
+uk - en-GB
+wie - nl-NL
+wenig - de-DE
+visitas - es-ES
+sydd - cy-GB
+WiFi - local
 ```
