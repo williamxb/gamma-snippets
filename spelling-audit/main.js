@@ -8,12 +8,12 @@ const GREEN = "\x1b[32m";
 const ENDCOLOR = "\x1b[0m";
 const BOLD = "\x1b[1m";
 
-var SpellChecker = require("simple-spellchecker");
-var dictionaryEN = SpellChecker.getDictionarySync("en-GB");
-var dictionaryNL = SpellChecker.getDictionarySync("nl-NL");
-var dictionaryES = SpellChecker.getDictionarySync("es-ES");
-var dictionaryDE = SpellChecker.getDictionarySync("de-DE");
-var dictionaryCY = SpellChecker.getDictionarySync("cy-GB");
+let SpellChecker = require('simple-spellchecker');
+let dictionaryEN = SpellChecker.getDictionarySync('en-GB');
+let dictionaryNL = SpellChecker.getDictionarySync('nl-NL');
+let dictionaryES = SpellChecker.getDictionarySync('es-ES');
+let dictionaryDE = SpellChecker.getDictionarySync('de-DE');
+let dictionaryCY = SpellChecker.getDictionarySync('cy-GB');
 
 // read and return local dictionary
 function readLocalDictionary(path) {
@@ -56,8 +56,9 @@ async function processCSVs(file1Path, file2Path) {
   });
 
   try {
-    const csv1Data = await readCsv(file1Path);
-    const csv2Data = await readCsv(file2Path);
+    let csv1Data = await readCsv(file1Path);
+    let csv2Data = await readCsv(file2Path);
+    let logData;
 
     let dataAdded = false;
     let corrections = { total: csv1Data.length, "en-GB": 0, "nl-NL": 0, "es-ES": 0, "de-DE": 0, "cy-GB": 0, local: 0, unknown: 0 };
@@ -73,17 +74,24 @@ async function processCSVs(file1Path, file2Path) {
         corrections[spelling.language]++, (dataAdded = true);
         csv2Data.push(row);
       }
+
+      logData += `${row.Error} - ${spelling.correct ? 'correct' : 'incorrect'} - ${spelling.language}\n`;
     }
 
     if (dataAdded) {
-      const headers = Object.keys(csv1Data[0]); // retain original headers
-      const csvWriter = createCsvWriter({
+      let headers = Object.keys(csv1Data[0]); // retain original headers
+      let csvWriter = createCsvWriter({
         path: file2Path,
         header: headers.map((header) => ({ id: header, title: header })),
       });
 
       await csvWriter.writeRecords(csv2Data).then(() => {
         console.log(`\output.csv written.\n${JSON.stringify(corrections, null, 2)}`);
+      });
+
+      await fs.appendFile(outputLogPath, logData, function (err) {
+        if (err) throw err;
+        console.log('output_log.txt updated.');
       });
     } else {
       console.log(`\nNothing to write.`);
@@ -95,6 +103,7 @@ async function processCSVs(file1Path, file2Path) {
 
 const file1Path = "./input.csv";
 const file2Path = "./output.csv";
+const outputLogPath = "./output_log.txt";
 const localDictionaryPath = "./spellcheck.txt";
 
 processCSVs(file1Path, file2Path);
