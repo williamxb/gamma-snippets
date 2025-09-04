@@ -1,6 +1,8 @@
 ## Getting Started
 
-This snippet receives the output of a Screaming Frog spellcheck crawl and outputs a parsed file with brand and industry terms removed.
+This snippet receives the output of a Screaming Frog spellcheck crawl and outputs a parsed file with predefined brand and industry terms removed, and allows the use of multiple dictionaries.
+
+The requirement from this came from our multilingual site - Screaming Frog's audit tools can only spellcheck in a single language.
 
 ### Prerequisites
 
@@ -17,16 +19,15 @@ This snippet receives the output of a Screaming Frog spellcheck crawl and output
    ```sh
    git clone https://github.com/williamxb/gamma-snippets.git
    ```
-3. Move directory.
-   ```sh
-   cd spelling-audit/
-   ```
-4. Install NPM packages.
+2. Install NPM packages.
    ```sh
    npm install
    ```
-4. (optional) Add the Welsh dictionary
-   Move the .dic file from the dictionary-cy-gb package to simple-spellchecker/dict and normalise it: `node cli.js normalize "./dict/en-GB.dic"`
+3. (optional) Add the Welsh dictionary
+   Move the .dic file from the dictionary-cy-gb package to simple-spellchecker/dict and normalise it:
+   ```sh
+   node cli.js normalize "./dict/en-GB.dic"`
+   ```
 
 ## Usage
 
